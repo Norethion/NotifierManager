@@ -1,0 +1,1 @@
+# NotifierManager.WinForms
