@@ -75,7 +75,7 @@ Windows için geliştirilmiş bir bildirim yönetim uygulaması. Bu uygulama ile
 
 ## Lisans
 
-Bu proje [LICENSE](./LICENSE) altında lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasına bakın.
+Bu proje [MIT] altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](./LICENSE) dosyasına bakın.
 
 ---
 
