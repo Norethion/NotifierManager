@@ -52,12 +52,16 @@ namespace NotifierManager.WinForms.Forms
 
         private void LoadSettings()
         {
-            // Settings'den değerleri yükle
+            // Windows başlangıç durumunu kontrol et
             var settings = Properties.Settings.Default;
-            StartWithWindows = settings.StartWithWindows;
-            MinimizeToTray = settings.MinimizeToTray;
-            NotificationDuration = settings.NotificationDuration;
-            DefaultPosition = settings.DefaultPosition;
+            string startupPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+                "NotifierManager.lnk");
+
+            chkStartWithWindows.Checked = File.Exists(startupPath);
+            chkMinimizeToTray.Checked = settings.MinimizeToTray;
+            numNotificationDuration.Value = settings.NotificationDuration;
+            cmbDefaultPosition.SelectedIndex = (int)settings.DefaultPosition;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

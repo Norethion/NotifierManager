@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 using NotifierManager.Core.Models;
+using NotifierManager.Data.Context;
+using NotifierManager.Data.Services;
 
 namespace NotifierManager.WinForms.Forms
 {
@@ -63,6 +60,28 @@ namespace NotifierManager.WinForms.Forms
                 if (!isClosing) StartFadeOut();
             };
             closeTimer.Start();
+
+            if (notification.EnableSound && !string.IsNullOrEmpty(notification.SoundPath))
+            {
+                PlayNotificationSound(notification.SoundPath);
+            }
+        }
+        private void PlayNotificationSound(string soundPath)
+        {
+            if (File.Exists(soundPath))
+            {
+                try
+                {
+                    using (var player = new System.Media.SoundPlayer(soundPath))
+                    {
+                        player.Play();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Ses çalma hatası loglama
+                }
+            }
         }
         private void SetPosition(NotificationPosition position)
         {

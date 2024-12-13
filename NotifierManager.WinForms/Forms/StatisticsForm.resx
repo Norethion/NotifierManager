@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Target" xml:space="preserve">
-    <value>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</value>
-  </data>
-  <data name="DefaultSchema" xml:space="preserve">
-    <value>dbo</value>
-  </data>
+  <metadata name="Metrik.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Değer.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

@@ -21,6 +21,8 @@ namespace NotifierManager.Core.Models
         public DateTime? LastShown { get; set; }
         public string SoundPath { get; set; }
         public int ShowCount { get; set; }
+        public bool EnableSound { get; set; }
+        public DateTime? LastRepeatDate { get; set; }
 
         [NotMapped]
         public DisplaySettings DisplaySettings
