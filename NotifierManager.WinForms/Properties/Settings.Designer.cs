@@ -61,7 +61,7 @@ namespace NotifierManager.WinForms.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TopRight")]
+        [global::System.Configuration.DefaultSettingValueAttribute("BottomRight")]
         public global::NotifierManager.Core.Models.NotificationPosition DefaultPosition {
             get {
                 return ((global::NotifierManager.Core.Models.NotificationPosition)(this["DefaultPosition"]));

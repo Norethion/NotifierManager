@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Enums\NotificationPosition.cs" />
+    <Compile Include="Helpers\AppVersion.cs" />
     <Compile Include="Helpers\ExportImportHelper.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\INotificationService.cs" />

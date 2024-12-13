@@ -8,6 +8,7 @@ using System.Drawing;
 using NotifierManager.WinForms.Forms;
 using NotifierManager.Core.Helpers;
 using System.IO;
+using NotifierManager.WinForms.Properties;
 
 namespace NotifierManager.WinForms
 {
@@ -24,26 +25,46 @@ namespace NotifierManager.WinForms
             var dbContext = new NotifierDbContext();
             _notificationService = new NotificationService(dbContext);
             _categoryService = new CategoryService(dbContext);
+            tsbVersion.Text = AppVersion.FullVersion;
 
             InitializeNotifyIcon();
             InitializeToolStrip();
             InitializeDataGridView();
             InitializeNotificationTimer();
             LoadNotifications();
+
+            this.Resize += Form1_Resize;
+        }
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            var settings = Settings.Default;
+
+            if (settings.MinimizeToTray && WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                _notifyIcon.Visible = true;
+            }
+            else if (WindowState == FormWindowState.Normal)
+            {
+                Show();
+                _notifyIcon.Visible = false;
+            }
         }
         private void InitializeNotifyIcon()
         {
+            string imagePath = Path.Combine(Application.StartupPath, "..", "..", "Icons", "notification.ico");
+            imagePath = Path.GetFullPath(imagePath);
             _notifyIcon = new NotifyIcon();
-            _notifyIcon.Icon = SystemIcons.Application;
+            _notifyIcon.Icon = new Icon(imagePath);
             _notifyIcon.Text = "Notifier Manager";
             _notifyIcon.Visible = true;
             _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
 
             var contextMenu = new ContextMenuStrip();
             contextMenu.Items.Add("Göster", null, (s, e) => { Show(); WindowState = FormWindowState.Normal; });
-            contextMenu.Items.Add("Yeni Bildirim", null, TsbNewNotification_Click);
-            contextMenu.Items.Add("Kategoriler", null, TsbCategories_Click);
             contextMenu.Items.Add("Ayarlar", null, TsbSettings_Click);
+            contextMenu.Items.Add("-");
+            contextMenu.Items.Add("Versiyon: " + AppVersion.Version, null, null).Enabled = false;
             contextMenu.Items.Add("-");
             contextMenu.Items.Add("Çıkış", null, (s, e) => Application.Exit());
 
@@ -58,8 +79,8 @@ namespace NotifierManager.WinForms
         private void InitializeDataGridView()
         {
             dgvNotifications.AutoGenerateColumns = false;
-            dgvNotifications.RowTemplate.Height = 35; // Satır yüksekliğini artır
-            dgvNotifications.Font = new Font("Segoe UI", 9F); // Font ayarı
+            dgvNotifications.RowTemplate.Height = 35;
+            dgvNotifications.Font = new Font("Segoe UI", 9F);
             dgvNotifications.Columns.Add(new DataGridViewImageColumn
             {
                 Name = "colStatus",
@@ -100,30 +121,33 @@ namespace NotifierManager.WinForms
                 Width = 100
             });
 
-            // Durum ikonunu göstermek için
             dgvNotifications.CellPainting += (s, e) =>
             {
                 if (e.ColumnIndex == dgvNotifications.Columns["colStatus"].Index && e.RowIndex >= 0)
                 {
-                    e.PaintBackground(e.CellBounds, true);
+                    e.PaintBackground(e.CellBounds, true); 
                     var notification = (Notification)dgvNotifications.Rows[e.RowIndex].DataBoundItem;
 
-                    // İkon boyutunu ve konumunu ayarla
-                    using (var icon = notification.NotificationTime > DateTime.Now ?
-                        SystemIcons.Information : SystemIcons.Exclamation)
-                    using (var smallIcon = new Icon(icon, 16, 16))
-                    {
-                        // Hücrenin tam ortasını bul
-                        int x = e.CellBounds.X + (e.CellBounds.Width - 16) / 2;
-                        int y = e.CellBounds.Y + (e.CellBounds.Height - 16) / 2;
+                    var icon = notification.NotificationTime > DateTime.Now
+                        ? SystemIcons.Information
+                        : SystemIcons.Exclamation;
 
-                        // İkonu çiz
+                    int iconWidth = e.CellBounds.Width / 2;
+                    int iconHeight = e.CellBounds.Height / 2;
+
+                    using (var smallIcon = new Icon(icon, iconWidth, iconHeight))
+                    {
+                        int x = e.CellBounds.X + (e.CellBounds.Width - smallIcon.Width) / 2;
+                        int y = e.CellBounds.Y + (e.CellBounds.Height - smallIcon.Height) / 2;
+
                         e.Graphics.DrawIcon(smallIcon, x, y);
                     }
-                    e.Handled = true;
+
+                    e.Handled = true; 
                 }
             };
-            
+
+
             var editColumn = new DataGridViewButtonColumn
             {
                 Name = "colEdit",
