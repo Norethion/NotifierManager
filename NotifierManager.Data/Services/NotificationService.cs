@@ -85,7 +85,12 @@ namespace NotifierManager.Data.Services
                 .Where(n => n.IsActive)
                 .ToList();
         }
-
+        public IEnumerable<Notification> GetAll()
+        {
+            return _context.Notifications
+                .Include(n => n.Category)
+                .ToList();
+        }
         public Notification GetNotification(int id)
         {
             return _repository.GetById(id);

@@ -30,6 +30,11 @@
                         Priority = c.Int(nullable: false),
                         CategoryId = c.Int(nullable: false),
                         DisplaySettingsJson = c.String(),
+                        IsRepeating = c.Boolean(nullable: false),
+                        RepeatPattern = c.String(),
+                        LastShown = c.DateTime(),
+                        SoundPath = c.String(),
+                        ShowCount = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)

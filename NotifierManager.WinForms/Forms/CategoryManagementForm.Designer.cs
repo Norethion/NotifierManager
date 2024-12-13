@@ -93,7 +93,7 @@
             // 
             this.btnClose.Location = new System.Drawing.Point(180, 90);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(80, 23);
+            this.btnClose.Size = new System.Drawing.Size(80, 30);
             this.btnClose.TabIndex = 7;
             this.btnClose.Text = "Kapat";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -103,7 +103,7 @@
             // 
             this.btnDelete.Location = new System.Drawing.Point(100, 90);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 23);
+            this.btnDelete.Size = new System.Drawing.Size(80, 30);
             this.btnDelete.TabIndex = 6;
             this.btnDelete.Text = "Sil";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -113,7 +113,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(20, 90);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(80, 23);
+            this.btnAdd.Size = new System.Drawing.Size(80, 30);
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Ekle";
             this.btnAdd.UseVisualStyleBackColor = true;
