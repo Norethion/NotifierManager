@@ -36,12 +36,14 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbStatistics = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbExport = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbImport = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbVersion = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNotifications)).BeginInit();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +78,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // tsbCategories
             // 
@@ -84,13 +86,13 @@
             this.tsbCategories.Image = ((System.Drawing.Image)(resources.GetObject("tsbCategories.Image")));
             this.tsbCategories.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCategories.Name = "tsbCategories";
-            this.tsbCategories.Size = new System.Drawing.Size(87, 28);
+            this.tsbCategories.Size = new System.Drawing.Size(87, 24);
             this.tsbCategories.Text = "Kategoriler";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // tsbSettings
             // 
@@ -98,13 +100,15 @@
             this.tsbSettings.Image = ((System.Drawing.Image)(resources.GetObject("tsbSettings.Image")));
             this.tsbSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSettings.Name = "tsbSettings";
-            this.tsbSettings.Size = new System.Drawing.Size(60, 28);
+            this.tsbSettings.Size = new System.Drawing.Size(60, 24);
             this.tsbSettings.Text = "Ayarlar";
             // 
             // toolStripMain
             // 
             this.toolStripMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbVersion,
+            this.toolStripSeparator6,
             this.tsbNewNotification,
             this.toolStripSeparator1,
             this.tsbCategories,
@@ -122,24 +126,19 @@
             this.toolStripMain.TabIndex = 2;
             this.toolStripMain.Text = "toolStrip1";
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
-            // 
             // tsbStatistics
             // 
             this.tsbStatistics.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbStatistics.Image = ((System.Drawing.Image)(resources.GetObject("tsbStatistics.Image")));
             this.tsbStatistics.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbStatistics.Name = "tsbStatistics";
-            this.tsbStatistics.Size = new System.Drawing.Size(84, 28);
+            this.tsbStatistics.Size = new System.Drawing.Size(84, 24);
             this.tsbStatistics.Text = "İstatistikler";
             // 
-            // toolStripSeparator4
+            // toolStripSeparator3
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
             // tsbExport
             // 
@@ -147,8 +146,13 @@
             this.tsbExport.Image = ((System.Drawing.Image)(resources.GetObject("tsbExport.Image")));
             this.tsbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbExport.Name = "tsbExport";
-            this.tsbExport.Size = new System.Drawing.Size(81, 28);
+            this.tsbExport.Size = new System.Drawing.Size(81, 24);
             this.tsbExport.Text = "Dışa Aktar";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
             // 
             // tsbImport
             // 
@@ -162,7 +166,18 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsbVersion
+            // 
+            this.tsbVersion.Name = "tsbVersion";
+            this.tsbVersion.Size = new System.Drawing.Size(67, 24);
+            this.tsbVersion.Text = "Versiyon:";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
             // 
             // Form1
             // 
@@ -171,6 +186,7 @@
             this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.dgvNotifications);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Notifier Manager";
@@ -197,6 +213,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton tsbImport;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripLabel tsbVersion;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 

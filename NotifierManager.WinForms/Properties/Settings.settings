@@ -12,7 +12,7 @@
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="DefaultPosition" Type="NotifierManager.Core.Models.NotificationPosition" Scope="User">
-      <Value Profile="(Default)">TopRight</Value>
+      <Value Profile="(Default)">BottomRight</Value>
     </Setting>
   </Settings>
 </SettingsFile>
