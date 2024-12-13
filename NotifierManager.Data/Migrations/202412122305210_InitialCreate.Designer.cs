@@ -13,7 +13,7 @@ namespace NotifierManager.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202412121928322_InitialCreate"; }
+            get { return "202412122305210_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

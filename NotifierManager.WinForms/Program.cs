@@ -12,9 +12,11 @@ namespace NotifierManager.WinForms
         [STAThread]
         static void Main()
         {
-            // Veritabanı dosya yolunu ayarla
-            AppDomain.CurrentDomain.SetData("DataDirectory",
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data"));
+            string appDataPath = Path.Combine(Application.StartupPath, "App_Data");
+            if (!Directory.Exists(appDataPath))
+                Directory.CreateDirectory(appDataPath);
+
+            AppDomain.CurrentDomain.SetData("DataDirectory", appDataPath);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

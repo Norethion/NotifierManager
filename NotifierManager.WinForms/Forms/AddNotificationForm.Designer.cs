@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbPriority = new System.Windows.Forms.ComboBox();
-            this.lblPriority = new System.Windows.Forms.Label();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
-            this.lblCategory = new System.Windows.Forms.Label();
             this.dtpNotificationTime = new System.Windows.Forms.DateTimePicker();
-            this.lblNotificationTime = new System.Windows.Forms.Label();
-            this.txtMessage = new System.Windows.Forms.TextBox();
-            this.lblMessage = new System.Windows.Forms.Label();
-            this.txtTitle = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.lblPriority = new System.Windows.Forms.Label();
+            this.lblMessage = new System.Windows.Forms.Label();
+            this.cmbCategory = new System.Windows.Forms.ComboBox();
+            this.txtMessage = new System.Windows.Forms.TextBox();
+            this.lblCategory = new System.Windows.Forms.Label();
+            this.cmbPriority = new System.Windows.Forms.ComboBox();
+            this.lblNotificationTime = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -76,46 +76,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(382, 453);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // cmbPriority
-            // 
-            this.cmbPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPriority.FormattingEnabled = true;
-            this.cmbPriority.Location = new System.Drawing.Point(121, 322);
-            this.cmbPriority.Name = "cmbPriority";
-            this.cmbPriority.Size = new System.Drawing.Size(248, 24);
-            this.cmbPriority.TabIndex = 20;
-            // 
-            // lblPriority
-            // 
-            this.lblPriority.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblPriority.AutoSize = true;
-            this.lblPriority.Location = new System.Drawing.Point(13, 326);
-            this.lblPriority.Name = "lblPriority";
-            this.lblPriority.Size = new System.Drawing.Size(55, 16);
-            this.lblPriority.TabIndex = 19;
-            this.lblPriority.Text = "Öncelik:";
-            // 
-            // cmbCategory
-            // 
-            this.cmbCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(121, 250);
-            this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(248, 24);
-            this.cmbCategory.TabIndex = 18;
-            // 
-            // lblCategory
-            // 
-            this.lblCategory.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(13, 254);
-            this.lblCategory.Name = "lblCategory";
-            this.lblCategory.Size = new System.Drawing.Size(60, 16);
-            this.lblCategory.TabIndex = 17;
-            this.lblCategory.Text = "Kategori:";
-            // 
             // dtpNotificationTime
             // 
             this.dtpNotificationTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -127,25 +87,33 @@
             this.dtpNotificationTime.Size = new System.Drawing.Size(248, 22);
             this.dtpNotificationTime.TabIndex = 16;
             // 
-            // lblNotificationTime
+            // lblTitle
             // 
-            this.lblNotificationTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblNotificationTime.AutoSize = true;
-            this.lblNotificationTime.Location = new System.Drawing.Point(13, 182);
-            this.lblNotificationTime.Name = "lblNotificationTime";
-            this.lblNotificationTime.Size = new System.Drawing.Size(102, 16);
-            this.lblNotificationTime.TabIndex = 15;
-            this.lblNotificationTime.Text = "Bildirim Zamanı:";
+            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(13, 38);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(47, 16);
+            this.lblTitle.TabIndex = 11;
+            this.lblTitle.Text = "Başlık:";
             // 
-            // txtMessage
+            // txtTitle
             // 
-            this.txtMessage.AcceptsReturn = true;
-            this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMessage.Location = new System.Drawing.Point(121, 85);
-            this.txtMessage.Multiline = true;
-            this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(248, 66);
-            this.txtMessage.TabIndex = 14;
+            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTitle.Location = new System.Drawing.Point(121, 35);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(248, 22);
+            this.txtTitle.TabIndex = 12;
+            // 
+            // lblPriority
+            // 
+            this.lblPriority.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblPriority.AutoSize = true;
+            this.lblPriority.Location = new System.Drawing.Point(13, 326);
+            this.lblPriority.Name = "lblPriority";
+            this.lblPriority.Size = new System.Drawing.Size(55, 16);
+            this.lblPriority.TabIndex = 19;
+            this.lblPriority.Text = "Öncelik:";
             // 
             // lblMessage
             // 
@@ -157,23 +125,55 @@
             this.lblMessage.TabIndex = 13;
             this.lblMessage.Text = "Mesaj:";
             // 
-            // txtTitle
+            // cmbCategory
             // 
-            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTitle.Location = new System.Drawing.Point(121, 35);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(248, 22);
-            this.txtTitle.TabIndex = 12;
+            this.cmbCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategory.FormattingEnabled = true;
+            this.cmbCategory.Location = new System.Drawing.Point(121, 250);
+            this.cmbCategory.Name = "cmbCategory";
+            this.cmbCategory.Size = new System.Drawing.Size(248, 24);
+            this.cmbCategory.TabIndex = 18;
             // 
-            // lblTitle
+            // txtMessage
             // 
-            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(13, 38);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(47, 16);
-            this.lblTitle.TabIndex = 11;
-            this.lblTitle.Text = "Başlık:";
+            this.txtMessage.AcceptsReturn = true;
+            this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMessage.Location = new System.Drawing.Point(121, 85);
+            this.txtMessage.Multiline = true;
+            this.txtMessage.Name = "txtMessage";
+            this.txtMessage.Size = new System.Drawing.Size(248, 66);
+            this.txtMessage.TabIndex = 14;
+            // 
+            // lblCategory
+            // 
+            this.lblCategory.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCategory.AutoSize = true;
+            this.lblCategory.Location = new System.Drawing.Point(13, 254);
+            this.lblCategory.Name = "lblCategory";
+            this.lblCategory.Size = new System.Drawing.Size(60, 16);
+            this.lblCategory.TabIndex = 17;
+            this.lblCategory.Text = "Kategori:";
+            // 
+            // cmbPriority
+            // 
+            this.cmbPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPriority.FormattingEnabled = true;
+            this.cmbPriority.Location = new System.Drawing.Point(121, 322);
+            this.cmbPriority.Name = "cmbPriority";
+            this.cmbPriority.Size = new System.Drawing.Size(248, 24);
+            this.cmbPriority.TabIndex = 20;
+            // 
+            // lblNotificationTime
+            // 
+            this.lblNotificationTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblNotificationTime.AutoSize = true;
+            this.lblNotificationTime.Location = new System.Drawing.Point(13, 182);
+            this.lblNotificationTime.Name = "lblNotificationTime";
+            this.lblNotificationTime.Size = new System.Drawing.Size(102, 16);
+            this.lblNotificationTime.TabIndex = 15;
+            this.lblNotificationTime.Text = "Bildirim Zamanı:";
             // 
             // panel1
             // 
@@ -188,16 +188,6 @@
             this.panel1.Size = new System.Drawing.Size(356, 67);
             this.panel1.TabIndex = 21;
             // 
-            // btnSave
-            // 
-            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSave.Location = new System.Drawing.Point(245, 0);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(108, 67);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Kaydet";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -207,6 +197,18 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "İptal";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnSave.Location = new System.Drawing.Point(245, 0);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(108, 67);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Kaydet";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // AddNotificationForm
             // 

@@ -19,7 +19,6 @@ namespace NotifierManager.WinForms
         {
             InitializeComponent();
 
-            // Servislerimizi başlat
             var dbContext = new NotifierDbContext();
             _notificationService = new NotificationService(dbContext);
             _categoryService = new CategoryService(dbContext);
@@ -27,6 +26,7 @@ namespace NotifierManager.WinForms
             InitializeNotifyIcon();
             InitializeToolStrip();
             InitializeDataGridView();
+            InitializeNotificationTimer();
             LoadNotifications();
         }
         private void InitializeNotifyIcon()
@@ -37,10 +37,14 @@ namespace NotifierManager.WinForms
             _notifyIcon.Visible = true;
             _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
 
-            // Context menu for notify icon
             var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add("Open", null, (s, e) => { Show(); WindowState = FormWindowState.Normal; });
-            contextMenu.Items.Add("Exit", null, (s, e) => Application.Exit());
+            contextMenu.Items.Add("Göster", null, (s, e) => { Show(); WindowState = FormWindowState.Normal; });
+            contextMenu.Items.Add("Yeni Bildirim", null, TsbNewNotification_Click);
+            contextMenu.Items.Add("Kategoriler", null, TsbCategories_Click);
+            contextMenu.Items.Add("Ayarlar", null, TsbSettings_Click);
+            contextMenu.Items.Add("-");
+            contextMenu.Items.Add("Çıkış", null, (s, e) => Application.Exit());
+
             _notifyIcon.ContextMenuStrip = contextMenu;
         }
 
@@ -53,19 +57,27 @@ namespace NotifierManager.WinForms
         {
             dgvNotifications.AutoGenerateColumns = false;
 
-            // Kolonları manuel olarak ekle
+            dgvNotifications.Columns.Add(new DataGridViewImageColumn
+            {
+                Name = "colStatus",
+                HeaderText = "",
+                Width = 30,
+            });
+
             dgvNotifications.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Title",
                 HeaderText = "Başlık",
-                Name = "colTitle"
+                Name = "colTitle",
+                Width = 150
             });
 
             dgvNotifications.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Message",
                 HeaderText = "Mesaj",
-                Name = "colMessage"
+                Name = "colMessage",
+                Width = 200
             });
 
             dgvNotifications.Columns.Add(new DataGridViewTextBoxColumn
@@ -73,6 +85,7 @@ namespace NotifierManager.WinForms
                 DataPropertyName = "NotificationTime",
                 HeaderText = "Bildirim Zamanı",
                 Name = "colTime",
+                Width = 120,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "dd.MM.yyyy HH:mm" }
             });
 
@@ -80,17 +93,59 @@ namespace NotifierManager.WinForms
             {
                 DataPropertyName = "Category.Name",
                 HeaderText = "Kategori",
-                Name = "colCategory"
+                Name = "colCategory",
+                Width = 100
             });
 
-            // Sağ tıklama menüsü
-            var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add("Düzenle", null, OnEditNotification);
-            contextMenu.Items.Add("Sil", null, OnDeleteNotification);
-            dgvNotifications.ContextMenuStrip = contextMenu;
+            // Durum ikonunu göstermek için
+            dgvNotifications.CellPainting += (s, e) =>
+            {
+                if (e.ColumnIndex == dgvNotifications.Columns["colStatus"].Index && e.RowIndex >= 0)
+                {
+                    var notification = (Notification)dgvNotifications.Rows[e.RowIndex].DataBoundItem;
+                    e.PaintBackground(e.CellBounds, true);
+                    var icon = notification.NotificationTime > DateTime.Now ?
+                        SystemIcons.Information : SystemIcons.Exclamation;
+                    e.Graphics.DrawIcon(icon, e.CellBounds.X + 2, e.CellBounds.Y + 2);
+                    e.Handled = true;
+                }
+            };
+        }
 
-            // Event handlers
-            dgvNotifications.CellDoubleClick += DgvNotifications_CellDoubleClick;
+        private Timer notificationCheckTimer;
+
+        // Constructor'a eklenecek
+        private void InitializeNotificationTimer()
+        {
+            notificationCheckTimer = new Timer();
+            notificationCheckTimer.Interval = 10000; // 10 saniye
+            notificationCheckTimer.Tick += NotificationCheckTimer_Tick;
+            notificationCheckTimer.Start();
+        }
+
+        private void NotificationCheckTimer_Tick(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+            var pendingNotifications = _notificationService.GetActiveNotifications()
+                .Where(n => n.NotificationTime <= now && n.NotificationTime > now.AddSeconds(-10))
+                .ToList();
+
+            foreach (var notification in pendingNotifications)
+            {
+                ShowNotification(notification);
+                // Bildirimi pasif yap
+                notification.IsActive = false;
+                _notificationService.UpdateNotification(notification);
+            }
+
+            // DataGridView'i güncelle
+            LoadNotifications();
+        }
+
+        private void ShowNotification(Notification notification)
+        {
+            var notificationForm = new NotificationPopup(notification);
+            notificationForm.Show();
         }
 
         private void LoadNotifications()
@@ -156,14 +211,17 @@ namespace NotifierManager.WinForms
                 if (addNotificationForm.ShowDialog() == DialogResult.OK)
                 {
                     var notification = addNotificationForm.Notification;
+
+                    if (notification == null)
+                    {
+                        MessageBox.Show("Form'dan alınan notification null!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     if (_notificationService.CreateNotification(notification))
                     {
-                        LoadNotifications(); // DataGridView'i yenile
+                        LoadNotifications();
                         MessageBox.Show("Bildirim başarıyla eklendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Bildirim eklenirken bir hata oluştu.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -171,14 +229,20 @@ namespace NotifierManager.WinForms
 
         private void TsbCategories_Click(object sender, EventArgs e)
         {
-            // TODO: Kategori yönetim formu açılacak
-            MessageBox.Show("Kategori yönetim formu açılacak.");
+            using (var categoryForm = new CategoryManagementForm())
+            {
+                categoryForm.ShowDialog();
+                // Form kapandığında DataGridView'i yenile (eğer yeni bildirimler varsa kategorileri güncel göstersin)
+                LoadNotifications();
+            }
         }
 
         private void TsbSettings_Click(object sender, EventArgs e)
         {
-            // TODO: Ayarlar formu açılacak
-            MessageBox.Show("Ayarlar formu açılacak.");
+            using (var settingsForm = new SettingsForm())
+            {
+                settingsForm.ShowDialog();
+            }
         }
     }
 }

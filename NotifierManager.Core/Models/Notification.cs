@@ -14,6 +14,13 @@ namespace NotifierManager.Core.Models
         public bool IsActive { get; set; }
         public NotificationPriority Priority { get; set; }
         public int CategoryId { get; set; }
+        public string DisplaySettingsJson { get; set; }
+        public virtual Category Category { get; set; }
+        public bool IsRepeating { get; set; }
+        public string RepeatPattern { get; set; } // Daily, Weekly, Monthly
+        public DateTime? LastShown { get; set; }
+        public string SoundPath { get; set; }
+        public int ShowCount { get; set; }
 
         [NotMapped]
         public DisplaySettings DisplaySettings
@@ -23,10 +30,6 @@ namespace NotifierManager.Core.Models
                 : JsonConvert.DeserializeObject<DisplaySettings>(DisplaySettingsJson);
             set => DisplaySettingsJson = JsonConvert.SerializeObject(value);
         }
-
-        public string DisplaySettingsJson { get; set; }
-
-        public virtual Category Category { get; set; }
     }
 
     public enum NotificationPriority

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Windows.Forms;
 using NotifierManager.Core.Interfaces;
 using NotifierManager.Core.Models;
 using NotifierManager.Data.Context;
@@ -9,10 +12,12 @@ namespace NotifierManager.Data.Services
 {
     public class NotificationService : INotificationService
     {
+        private readonly NotifierDbContext _context;
         private readonly Repository<Notification> _repository;
 
         public NotificationService(NotifierDbContext context)
         {
+            _context = context;
             _repository = new Repository<Notification>(context);
         }
 
@@ -20,12 +25,36 @@ namespace NotifierManager.Data.Services
         {
             try
             {
+                if (notification == null)
+                {
+                    MessageBox.Show("Notification objesi null!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                // Tüm gerekli alanları kontrol edelim
+                var debugInfo = $"Notification Detayları:\n" +
+                               $"Title: {notification.Title}\n" +
+                               $"Message: {notification.Message}\n" +
+                               $"CategoryId: {notification.CategoryId}\n" +
+                               $"NotificationTime: {notification.NotificationTime}\n" +
+                               $"Priority: {notification.Priority}\n" +
+                               $"DisplaySettings: {notification.DisplaySettingsJson}";
+
+                MessageBox.Show(debugInfo, "Debug Bilgisi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 _repository.Add(notification);
                 _repository.SaveChanges();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"CreateNotification Hatası:\n" +
+                               $"Message: {ex.Message}\n" +
+                               $"Inner Exception: {ex.InnerException?.Message}\n" +
+                               $"Stack Trace: {ex.StackTrace}",
+                    "Hata Detayı",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -51,7 +80,10 @@ namespace NotifierManager.Data.Services
 
         public IEnumerable<Notification> GetActiveNotifications()
         {
-            return _repository.GetAll().Where(n => n.IsActive);
+            return _context.Notifications
+                .Include(n => n.Category)
+                .Where(n => n.IsActive)
+                .ToList();
         }
 
         public Notification GetNotification(int id)
