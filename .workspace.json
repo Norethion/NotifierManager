@@ -1,0 +1,121 @@
+{
+  "$schema": "../workspace-launcher/workspace.schema.json",
+  "name": "Notifier Manager",
+  "description": ".NET Fw 4.8 + EF6 + LocalDB bildirim yönetim uygulaması",
+  "icon": "🔔",
+  "color": "#fb923c",
+  "ports": [],
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/norethion/notifier-manager" }
+  ],
+  "actions": [
+    {
+      "id": "start-all",
+      "label": "Başlat",
+      "group": "lifecycle",
+      "primary": true,
+      "steps": [
+        { "run": "if not exist \"NotifierManager.WinForms\\bin\\Release\\NotifierManager.WinForms.exe\" ( echo [X] Build edilmemis - once 'Build' calistirin & exit /b 1 )", "continueOnError": true },
+        { "id": "app", "label": "NotifierManager (tray)", "run": "NotifierManager.WinForms\\bin\\Release\\NotifierManager.WinForms.exe", "cwd": "NotifierManager.WinForms\\bin\\Release", "background": true }
+      ]
+    },
+    {
+      "id": "stop",
+      "label": "Durdur",
+      "group": "lifecycle",
+      "steps": [
+        { "run": "taskkill /IM NotifierManager.WinForms.exe /F /T", "continueOnError": true }
+      ]
+    },
+    {
+      "id": "restart",
+      "label": "Yeniden Başlat",
+      "group": "lifecycle",
+      "steps": [
+        { "run": "taskkill /IM NotifierManager.WinForms.exe /F /T", "continueOnError": true },
+        { "sleep": 800 },
+        { "id": "app", "label": "NotifierManager (tray)", "run": "NotifierManager.WinForms\\bin\\Release\\NotifierManager.WinForms.exe", "cwd": "NotifierManager.WinForms\\bin\\Release", "background": true }
+      ]
+    },
+    {
+      "id": "build",
+      "label": "Release Build",
+      "group": "modes",
+      "steps": [
+        { "run": "for /f \"usebackq tokens=*\" %i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe`) do \"%i\" NotifierManager.WinForms.sln /p:Configuration=Release /v:minimal /nologo" }
+      ]
+    },
+    {
+      "id": "build:debug",
+      "label": "Debug Build",
+      "group": "modes",
+      "steps": [
+        { "run": "for /f \"usebackq tokens=*\" %i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe`) do \"%i\" NotifierManager.WinForms.sln /p:Configuration=Debug /v:minimal /nologo" }
+      ]
+    },
+    {
+      "id": "first-setup",
+      "label": "İlk Kurulum",
+      "group": "setup",
+      "steps": [
+        { "run": "for /f \"usebackq tokens=*\" %i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe`) do \"%i\" NotifierManager.WinForms.sln /t:Restore /v:minimal /nologo" },
+        { "run": "powershell -NoProfile -Command \"if (Get-Command sqllocaldb -ErrorAction SilentlyContinue) { sqllocaldb start MSSQLLocalDB } else { Write-Host '[!] sqllocaldb yok - SQL Server Express LocalDB kurun' }\"", "continueOnError": true },
+        { "run": "for /f \"usebackq tokens=*\" %i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe`) do \"%i\" NotifierManager.WinForms.sln /p:Configuration=Release /v:minimal /nologo" }
+      ]
+    },
+    {
+      "id": "install",
+      "label": "NuGet Restore",
+      "group": "setup",
+      "steps": [
+        { "run": "for /f \"usebackq tokens=*\" %i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe`) do \"%i\" NotifierManager.WinForms.sln /t:Restore /v:minimal /nologo" }
+      ]
+    },
+    {
+      "id": "check-env",
+      "label": "Runtime Kontrolü",
+      "group": "setup",
+      "steps": [
+        { "run": "if exist \"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" (echo [OK] vswhere bulundu) else (echo [X] vswhere yok - Visual Studio veya Build Tools gerekli)", "continueOnError": true },
+        { "run": "for /f \"usebackq tokens=*\" %i in (`\"%ProgramFiles(x86)%\\Microsoft Visual Studio\\Installer\\vswhere.exe\" -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe`) do echo [OK] msbuild: %i", "continueOnError": true },
+        { "run": "powershell -NoProfile -Command \"$v = (Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full' -Name Release -ErrorAction SilentlyContinue).Release; if ($v -ge 528040) { Write-Host '[OK] .NET Fw 4.8 kurulu (release='$v')' } else { Write-Host '[X] .NET Fw 4.8 yok' }\"", "continueOnError": true },
+        { "run": "powershell -NoProfile -Command \"if (Get-Command sqllocaldb -ErrorAction SilentlyContinue) { Write-Host '[OK] LocalDB kuruldu'; sqllocaldb info } else { Write-Host '[X] LocalDB yok - SQL Server Express LocalDB kurun: winget install Microsoft.SQLServer.2022.LocalDB' }\"", "continueOnError": true }
+      ]
+    },
+    {
+      "id": "db:migrate",
+      "label": "LocalDB Başlat",
+      "group": "db",
+      "steps": [
+        { "run": "sqllocaldb start MSSQLLocalDB", "continueOnError": true },
+        { "run": "sqllocaldb info MSSQLLocalDB", "continueOnError": true }
+      ]
+    },
+    {
+      "id": "db:studio",
+      "label": "LocalDB Bilgi",
+      "group": "db",
+      "steps": [
+        { "run": "sqllocaldb info MSSQLLocalDB", "continueOnError": true },
+        { "run": "echo Baglanmak icin: sqlcmd -S \"(localdb)\\MSSQLLocalDB\"" }
+      ]
+    },
+    {
+      "id": "status",
+      "label": "Durum",
+      "group": "diag",
+      "steps": [
+        { "run": "tasklist /FI \"IMAGENAME eq NotifierManager.WinForms.exe\" /NH", "continueOnError": true },
+        { "run": "sqllocaldb info MSSQLLocalDB", "continueOnError": true }
+      ]
+    },
+    {
+      "id": "open",
+      "label": "Release Klasörünü Aç",
+      "group": "links",
+      "steps": [
+        { "run": "if exist \"NotifierManager.WinForms\\bin\\Release\" ( explorer \"NotifierManager.WinForms\\bin\\Release\" ) else ( echo [X] Once build alin )", "continueOnError": true }
+      ]
+    }
+  ]
+}
