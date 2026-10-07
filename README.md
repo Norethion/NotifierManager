@@ -1,82 +1,85 @@
 # Notifier Manager
 
-Windows için geliştirilmiş bir bildirim yönetim uygulaması. Bu uygulama ile bildirimlerinizi oluşturabilir, düzenleyebilir ve yönetebilirsiniz.
+**English** · [Türkçe](./README.tr.md)
 
-## Özellikler
+A notification management application developed for Windows.
+With this application, you can create, edit, and manage your notifications.
 
-### Temel Özellikler
-- 📝 Bildirim oluşturma ve düzenleme
-- 🗂️ Kategori yönetimi
-- 🔔 Bildirim öncelik seviyeleri
-- 🖥️ Sistem tepsisinde çalışma özelliği
+## Features
 
-### Bildirim Özellikleri
-- ⏰ Zamanlanmış bildirimler
-- 🔁 Tekrarlayan bildirimler (Günlük, Haftalık, Aylık)
-- 🔊 Bildirim ses desteği
-- 🎨 Özelleştirilebilir bildirim görünümü
+### Basic Features
+- 📝 Create and edit notifications
+- 🗂️ Category management
+- 🔔 Notification priority levels
+- 🖥️ Run in the system tray
 
-### Yönetim Özellikleri
-- 📊 Bildirim istatistikleri görüntüleme
-- 💾 Verileri dışa/içe aktarma
-- 🚀 Windows başlangıcında otomatik başlatma
-- 🌈 Kategori bazlı renklendirme
+### Notification Features
+- ⏰ Scheduled notifications
+- 🔁 Recurring notifications (Daily, Weekly, Monthly)
+- 🔊 Notification sound support
+- 🎨 Customizable notification appearance
 
-## Teknolojiler
+### Management Features
+- 📊 View notification statistics
+- 💾 Export/import data
+- 🚀 Start automatically when Windows starts
+- 🌈 Category-based coloring
+
+## Technologies
 - .NET Framework 4.8
 - Windows Forms
 - Entity Framework 6.5.1
 - LocalDB (SQL Server)
 - Newtonsoft.Json
 
-## Kurulum
+## Installation
 
-1. Projeyi klonlayın:
+1. Clone the project:
    ```bash
-   git clone https://github.com/norethion/notifier-manager.git
+   git clone https://github.com/Norethion/NotifierManager.git
    ```
 
-2. Visual Studio'da açın.
+2. Open it in Visual Studio.
 
-3. NuGet paketlerini geri yükleyin:
+3. Restore the NuGet packages:
    ```bash
    nuget restore NotifierManager.sln
    ```
 
-4. Projeyi derleyin ve çalıştırın.
+4. Build and run the project.
 
-## Kullanım
+## Usage
 
-1. İlk kullanımda en az bir kategori oluşturun.
-2. "Yeni Bildirim" butonu ile bildirim ekleyin.
-3. Bildirimleri düzenleyebilir veya silebilirsiniz.
-4. İstatistikler bölümünden bildirim verilerini görüntüleyebilirsiniz.
-5. Ayarlar bölümünden uygulama tercihlerini özelleştirebilirsiniz.
+1. Create at least one category when you first use the application.
+2. Add a notification with the "Yeni Bildirim" button.
+3. You can edit or delete notifications.
+4. You can view notification data in the Statistics section.
+5. You can customize application preferences in the Settings section.
 
-## Katkıda Bulunma
+## Contributing
 
-1. Bu depoyu fork edin.
-2. Yeni bir özellik dalı oluşturun:
+1. Fork this repository.
+2. Create a new feature branch:
    ```bash
    git checkout -b yeni-ozellik
    ```
-3. Değişikliklerinizi commit edin:
+3. Commit your changes:
    ```bash
    git commit -am 'Yeni özellik: Açıklama'
    ```
-4. Dalınıza push yapın:
+4. Push to your branch:
    ```bash
    git push origin yeni-ozellik
    ```
-5. Yeni bir Pull Request oluşturun.
+5. Create a new Pull Request.
 
-## Geliştirici
+## Developer
 [Norethion-AEA]
 
-## Lisans
+## License
 
-Bu proje [MIT] altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](./LICENSE) dosyasına bakın.
+This project is licensed under [MIT]. For more information, see the [LICENSE](./LICENSE) file.
 
 ---
 
-*Dipnot: Bu proje tamamen claude.ai kullanılarak yazılmıştır.*
+*Footnote: This project was written entirely using claude.ai.*
